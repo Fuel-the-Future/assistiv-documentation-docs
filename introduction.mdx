@@ -1,29 +1,40 @@
 ---
-title: Introduction
-description: "Starter project with example pages, components, and auto-deploy from GitHub. Edit MDX files, customize your theme, and go live in minutes."
+title: Assistiv Documentation
+description: Entry point for platform architecture, service boundaries, local setup, and documentation workflow.
 ---
 
-Welcome to your documentation site. This starter project has everything you need to get up and running.
+This documentation set maps the Assistiv platform end to end: user-facing frontend, system admin frontend, backend API, and Aurora microservice.
 
-## What's included
+Last updated from repository scan: April 18, 2026.
 
-<Columns cols={2}>
-  <Card title="Ready-made pages" icon="file-lines">
-    Example pages showing how to structure your docs with headings, lists, and components.
-  </Card>
-  <Card title="Component examples" icon="puzzle-piece">
-    Cards, callouts, tabs, steps, and more — all ready to use.
-  </Card>
-  <Card title="Auto-deploy" icon="rocket">
-    Push to GitHub and your docs build and deploy automatically.
-  </Card>
-  <Card title="Customizable" icon="palette">
-    Change colors, logo, navigation, and theme in `docs.json`.
-  </Card>
-</Columns>
+## Scope
 
-## Next steps
+The current docs cover:
 
-<Card title="Quickstart" icon="play" href="/quickstart">
-  Learn how to edit pages, customize your site, and deploy changes.
-</Card>
+- System architecture and service boundaries
+- Repository-level ownership and responsibilities
+- Local development startup sequence
+- Backend and Aurora route surface at a high level
+- Jamdesk publishing and documentation automation workflow
+
+## Repositories Covered
+
+- `assistiv` (main Next.js frontend)
+- `assistiv-admin` (system admin Next.js frontend)
+- `assistiv-backend` (Node/Express API)
+- `aurora` (Go microservice for AI-focused features)
+- `assistiv-documentation-docs` (this Jamdesk docs site)
+
+## Reading Order
+
+1. `System Overview` for runtime architecture and traffic flow.
+2. `Repository Map` for code ownership boundaries.
+3. `Local Development` for startup and environment requirements.
+4. Service pages for deep dives into each repo.
+5. `Jamdesk Workflow` for automation and publishing model.
+
+## Current Status
+
+This is the baseline documentation scaffold. It is intentionally accurate to current code structure, but not yet exhaustive for every endpoint or feature branch.
+
+Use this as the canonical starting point for expansion in pull requests.

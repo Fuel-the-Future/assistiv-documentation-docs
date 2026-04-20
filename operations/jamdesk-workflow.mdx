@@ -1,0 +1,46 @@
+---
+title: Jamdesk Workflow
+description: How to run docs-as-code for Assistiv in Jamdesk, including what can be automated and what still needs authoring.
+---
+
+This page answers two practical questions:
+
+1. What does Jamdesk automate today?
+2. What should our team automate next for full-stack Assistiv docs?
+
+## What Jamdesk Automates Now
+
+- Build and deploy on push to the connected branch
+- Validation of `docs.json` and MDX pages during build
+- AI-ready outputs like `llms.txt` and markdown-source page access (`.md` URL suffix)
+- OpenAPI endpoint page generation when an OpenAPI spec is configured
+
+## What Is Not Fully Automatic Yet
+
+- End-to-end conceptual documentation generated from all repos with no guidance
+- Full architecture narratives and business-context explanations
+- Guaranteed accurate cross-repo change logs without a workflow layered on top
+
+## Practical Automation Pattern for Assistiv
+
+1. Keep this repo as the published source of truth.
+2. Add a lightweight "docs update required" checklist to each product PR.
+3. Use AI agents (Codex/Cursor) to draft MDX updates from code diffs.
+4. Review docs changes in the same PR as code changes whenever possible.
+5. Introduce OpenAPI specs for backend and Aurora to auto-generate endpoint docs.
+
+## Codex-Based Automation Option
+
+Jamdesk documents a Codex workflow using:
+
+- project-level writing rules in `AGENTS.md`
+- optional MCP endpoint config for docs retrieval
+- optional `/update-jamdesk` skill for automated doc updates
+
+This is currently the fastest path to partial automation without building a custom doc generation pipeline.
+
+## Suggested Near-Term Improvements
+
+1. Add an OpenAPI export step in CI for backend and Aurora.
+2. Generate route inventory artifacts on each merge and include doc diff checks.
+3. Add ownership metadata to docs pages so each section has a maintainer.

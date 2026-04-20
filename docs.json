@@ -1,17 +1,17 @@
 {
   "$schema": "https://jamdesk.com/docs.json",
-  "name": "Documentation",
-  "description": "Your documentation site powered by Jamdesk",
+  "name": "Assistiv Platform Docs",
+  "description": "Architecture and operations documentation for Assistiv frontends, backend, and Aurora service.",
   "theme": "jam",
   "colors": {
-    "primary": "#6366F1",
-    "light": "#818CF8",
-    "dark": "#4F46E5"
+    "primary": "#0B5E56",
+    "light": "#2F8F84",
+    "dark": "#074A44"
   },
   "navbar": {
     "primary": {
       "type": "button",
-      "label": "Get Started",
+      "label": "System Overview",
       "href": "/introduction"
     }
   },
@@ -22,33 +22,33 @@
         "icon": "book-open",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Start Here",
             "pages": [
               "introduction",
-              "quickstart"
+              "architecture/system-overview",
+              "architecture/repository-map"
             ]
           },
           {
-            "group": "Writing Content",
+            "group": "Run and Operate",
             "pages": [
-              "writing/pages",
-              "writing/components",
-              "writing/code-blocks"
+              "setup/local-development"
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Components",
-        "icon": "puzzle-piece",
-        "groups": [
+          },
           {
-            "group": "Components",
+            "group": "Services",
             "pages": [
-              "components/cards",
-              "components/callouts",
-              "components/tabs-and-accordions",
-              "components/steps"
+              "services/assistiv-frontend",
+              "services/assistiv-admin",
+              "services/assistiv-backend",
+              "services/aurora",
+              "services/api-surface"
+            ]
+          },
+          {
+            "group": "Documentation Ops",
+            "pages": [
+              "operations/jamdesk-workflow"
             ]
           }
         ]

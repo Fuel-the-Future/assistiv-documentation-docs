@@ -1,0 +1,66 @@
+---
+title: aurora Service
+description: Go microservice architecture, route prefix model, and AI-related responsibilities.
+---
+
+Repository: `D:\GIT Repos\aurora`
+
+## Stack
+
+- Go `1.24.x`
+- Gorilla Mux router
+- AWS SDK v2 clients (including Bedrock and Secrets Manager)
+- PostgreSQL and Redis dependencies
+
+## Base Path and Core Routes
+
+Aurora mounts all API handlers under:
+
+- `/aurora/v1`
+
+Current route families:
+
+- `/insight`
+- `/query`
+- `/course`
+- `/quiz`
+- `/study`
+- `/spaces`
+- `/sources`
+- `/document`
+
+Ping endpoint:
+
+- `GET /aurora/v1/` returns `"success"`
+
+## Startup Flow
+
+`cmd/aurora/main.go`:
+
+1. Loads config and secrets
+2. Builds router
+3. Wraps with CORS middleware
+4. Initializes token queue shared by AI provider integrations
+5. Serves HTTPS in development and HTTP otherwise
+
+## Port Behavior
+
+From config bootstrap:
+
+- `ENV=development` -> listen on `:3001`
+- otherwise -> listen on `:80`
+
+## Integration Notes
+
+- Frontends call Aurora directly using `NEXT_PUBLIC_AURORA_API_URL_*`.
+- Backend also calls Aurora service for selected operations.
+- CORS allows production domains and local frontend origin in development mode.
+
+## Key Environment Variables (observed)
+
+- `ENV`
+- `ASSISTIV_BACKEND_URL`
+- `DATABASE_*`, `DATABASE_URL`
+- `REDIS_*`
+- `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`
+- auth/session-related secrets and external provider keys

@@ -1,0 +1,51 @@
+---
+title: assistiv Frontend
+description: Main product frontend architecture, routing model, and backend integration points.
+---
+
+Repository: `D:\GIT Repos\assistiv`
+
+## Stack
+
+- Next.js `14.1.1`
+- React `18`
+- TypeScript
+- Redux Toolkit
+
+## Route Structure (App Router)
+
+Major route groups identified in `app/`:
+
+- `(auth)` for sign-up, invites, login redirect
+- `(portal)/student` for student workflows (`courses`, `course`, `lesson`, `study`, `spaces`, `profile`)
+- `(portal)/admin` for tenant-admin workflows (`courses`, `grades`, `group`, `reports`, system setup pages)
+- `guest-playground` for unauthenticated playground flow
+
+## API Integration
+
+`app/services/util/request-service.ts` defines two base URLs:
+
+- Main API base URL (`assistiv-backend`)
+- Aurora API base URL (`aurora`)
+
+Requests choose Aurora when `aurora: true` is passed into request helpers.
+
+## URL Resolution
+
+`app/services/util/utility-service.ts` resolves production URLs by hostname and defaults to:
+
+- `https://backend.useassistiv.com/`
+- `https://backend.useassistiv.com/aurora/v1/`
+
+## Key Environment Variables
+
+- `NEXT_PUBLIC_API_URL_DEVELOPMENT`
+- `NEXT_PUBLIC_AURORA_API_URL_DEVELOPMENT`
+- `NEXT_PUBLIC_API_URL_PRODUCTION`
+- `NEXT_PUBLIC_AURORA_API_URL_PRODUCTION`
+- Auth/provider keys such as Google and Microsoft values
+
+## Notes
+
+- Local run command uses HTTPS and port `4200`.
+- Authentication flows use backend redirect endpoints under `/auth/...`.

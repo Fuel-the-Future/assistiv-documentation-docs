@@ -1,0 +1,74 @@
+---
+title: assistiv-backend API
+description: Express API service architecture, mounted route domains, and integration with Aurora and infrastructure services.
+---
+
+Repository: `D:\GIT Repos\assistiv-backend`
+
+## Stack
+
+- Node.js + Express
+- TypeScript
+- MikroORM (via shared `mikro-orm-db-lib`)
+- Redis/Valkey (`ioredis`)
+- AWS SDK integrations
+
+## Startup and Runtime
+
+Initialization path in `app/app.ts` includes:
+
+1. Secret injection
+2. CORS setup
+3. Passport/session middleware setup
+4. Database connect + request context middleware
+5. Redis connection
+6. Router mounts
+
+In development mode, backend serves HTTPS using local cert files and typically listens on `3000`.
+
+## Mounted Route Domains
+
+`app/app.ts` mounts these router prefixes:
+
+| Prefix | Domain |
+| --- | --- |
+| `/auth` | Authentication and session flows |
+| `/user` | User profile, progress, and overview data |
+| `/course` | Course structure and activity metadata |
+| `/content` | Videos/docs/resources and related content operations |
+| `/quiz` | Quiz definitions and attempts |
+| `/assignment` | Assignment CRUD and submissions |
+| `/group` | Group membership and group-course assignment |
+| `/admin` | Tenant/admin management capabilities |
+| `/distribution` | Distribution/subdomain token usage |
+| `/progress` | Student and classroom progress reporting |
+| `/study` | Study material and tutoring session storage |
+| `/` | Spaces router and root ping |
+| `/log` | Frontend and Aurora error logs |
+| `/system` | System admin and token limit controls |
+
+## Aurora Integration
+
+Aurora is consumed from backend via `app/services/auroraClient.ts`, including:
+
+- document summarization trigger
+- study-space query forwarding
+
+A legacy backend route (`POST /spaces/:spaceId/query`) now returns `410` with guidance to call Aurora directly.
+
+## Infrastructure Dependencies
+
+- PostgreSQL
+- Redis/Valkey
+- AWS Secrets Manager
+- AWS S3 (uploads and related assets)
+- cloud distribution and DNS integrations (Route 53 / CloudFront variables present)
+
+## Key Environment Variables (observed)
+
+- `NODE_ENV`, `PORT`
+- `DATABASE_*`, `DATABASE_URL`
+- `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`
+- `AURORA_API_URL_DEVELOPMENT`, `AURORA_API_URL_PRODUCTION`
+- `AWS_REGION`
+- provider and integration keys for auth, uploads, and mail

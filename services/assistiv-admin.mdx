@@ -1,0 +1,45 @@
+---
+title: assistiv-admin Frontend
+description: System administration frontend for platform-level controls and operations.
+---
+
+Repository: `D:\GIT Repos\assistiv-admin`
+
+## Stack
+
+- Next.js `15.4.5`
+- React `19`
+- TypeScript
+- Redux Toolkit
+
+## Route Structure (App Router)
+
+Major system-admin route groups:
+
+- `(portal)/system/(pages)/administration`
+- `(portal)/system/(pages)/deployment`
+- `(portal)/system/(pages)/error-logs`
+- `(portal)/system/(pages)/model-usage`
+
+## API Integration
+
+Like `assistiv`, this app uses `app/services/util/request-service.ts` with two service targets:
+
+- backend API base URL
+- Aurora API base URL
+
+System login is wired to backend route:
+
+- `/system/login`
+
+## Key Environment Variables
+
+- `NEXT_PUBLIC_API_URL_DEVELOPMENT`
+- `NEXT_PUBLIC_AURORA_API_URL_DEVELOPMENT`
+- `NEXT_PUBLIC_API_URL_PRODUCTION`
+- `NEXT_PUBLIC_AURORA_API_URL_PRODUCTION`
+
+## Notes
+
+- Makefile defaults to port `4200`, which conflicts with `assistiv` if both use default commands.
+- Run one frontend on a custom port when developing both apps simultaneously.

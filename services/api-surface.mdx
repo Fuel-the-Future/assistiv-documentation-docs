@@ -1,0 +1,50 @@
+---
+title: API Surface Summary
+description: High-level map of backend and Aurora route domains, with recommendations for next-stage API documentation.
+---
+
+This page summarizes the currently observed API surface from route registration in source code.
+
+## assistiv-backend Route Domains
+
+| Domain | Prefix | Example capabilities |
+| --- | --- | --- |
+| Auth | `/auth` | login, logout, session validation, SAML/OAuth flows |
+| Users | `/user` | profile, course progress, upcoming activities |
+| Courses | `/course` | course/unit/subunit create/update/reorder |
+| Content | `/content` | document/resource/video operations |
+| Quiz | `/quiz` | attempt lifecycle and quiz data |
+| Assignments | `/assignment` | assignment creation/submission/grading |
+| Groups | `/group` | user groups and group-course management |
+| Admin | `/admin` | tenant admin operations, roles, invite links |
+| Progress | `/progress` | student/classroom analytics and grading views |
+| Study | `/study` | flashcards, study questions, tutor sessions |
+| Spaces | `/spaces` via root router | user study spaces, uploads, shared sessions |
+| Logging | `/log` | frontend and Aurora error logs |
+| System | `/system` | system users, token limits, enterprise setup |
+
+## Aurora Route Domains
+
+All routes are under `/aurora/v1`.
+
+| Path family | Focus |
+| --- | --- |
+| `/insight` | insight-style AI outputs |
+| `/query` | query and response workflows |
+| `/course` | course-aware AI endpoints |
+| `/quiz` | quiz-related AI generation/support |
+| `/study` | study material AI workflows |
+| `/spaces` | space-specific AI interactions |
+| `/sources` | source retrieval/research workflows |
+| `/document` | document operations, including summarization |
+
+## OpenAPI Status
+
+No OpenAPI or Swagger spec files were detected in the scanned repositories during this pass.
+
+## Recommended Next Step for API Docs
+
+1. Export or hand-author OpenAPI specs for `assistiv-backend` and `aurora`.
+2. Add specs to this docs repository (for example `openapi/backend.yaml`, `openapi/aurora.yaml`).
+3. Configure `docs.json` `api.openapi`.
+4. Add endpoint pages that use `openapi` frontmatter so Jamdesk auto-generates request and response schema docs.

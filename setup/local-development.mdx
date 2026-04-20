@@ -1,0 +1,101 @@
+---
+title: Local Development
+description: Practical startup order, prerequisites, and environment conventions for running the full Assistiv stack locally.
+---
+
+This guide is intended for running all major services in parallel during local development.
+
+## Prerequisites
+
+- Node.js `22.14.0`
+- Yarn classic
+- GNU Make
+- Docker Desktop (for backend Valkey/Redis dependency)
+- Go `1.24+` (for `aurora`)
+- `mkcert` for local HTTPS certificates
+
+## Certificates
+
+Each repo expects local certificate files similar to:
+
+- `localhost+1.pem`
+- `localhost+1-key.pem`
+
+Typical bootstrap:
+
+```bash
+mkcert -install
+mkcert localhost 127.0.0.1
+```
+
+Run from each repo root where the certificates are expected.
+
+## Startup Sequence
+
+1. Start `assistiv-backend`:
+
+```bash
+cd D:\GIT Repos\assistiv-backend
+make init
+make run
+```
+
+2. Start `aurora`:
+
+```bash
+cd D:\GIT Repos\aurora
+go mod download && go mod verify
+make run
+```
+
+3. Start `assistiv`:
+
+```bash
+cd D:\GIT Repos\assistiv
+make init
+make run
+```
+
+4. Start `assistiv-admin` on a non-conflicting port:
+
+```bash
+cd D:\GIT Repos\assistiv-admin
+yarn dev --experimental-https --hostname 0.0.0.0 --port 4201
+```
+
+## Why Admin Needs a Different Port
+
+Both frontend Makefiles currently run on `4200`. Use a custom port for one frontend when running both at once.
+
+## Key Environment Variables by Service
+
+### `assistiv` and `assistiv-admin`
+
+- `NEXT_PUBLIC_API_URL_DEVELOPMENT`
+- `NEXT_PUBLIC_AURORA_API_URL_DEVELOPMENT`
+- `NEXT_PUBLIC_API_URL_PRODUCTION`
+- `NEXT_PUBLIC_AURORA_API_URL_PRODUCTION`
+
+### `assistiv-backend`
+
+- `NODE_ENV`, `PORT`
+- `DATABASE_*` and/or `DATABASE_URL`
+- `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`
+- `AURORA_API_URL_DEVELOPMENT`, `AURORA_API_URL_PRODUCTION`
+- `AWS_REGION`, upload bucket settings, OAuth provider keys
+
+### `aurora`
+
+- `ENV` (controls dev/prod mode and listen port behavior)
+- `DATABASE_*` and/or `DATABASE_URL`
+- `REDIS_*`
+- `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`
+- session/auth keys and backend URL settings
+
+## Validation Checklist
+
+- Frontend loads with HTTPS
+- Backend health route `/` returns success
+- Aurora `/aurora/v1/` returns success
+- Login redirects resolve to backend endpoints
+- Frontend requests resolve to expected API base URLs

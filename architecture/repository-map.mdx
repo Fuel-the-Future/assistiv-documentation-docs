@@ -1,0 +1,29 @@
+---
+title: Repository Map
+description: Quick ownership map for all repositories participating in the Assistiv platform.
+---
+
+This page defines what each repository owns, so docs and implementation changes stay in the right place.
+
+## Repository Inventory
+
+| Repository | Primary stack | Owns | Typical run command |
+| --- | --- | --- | --- |
+| `assistiv` | Next.js 14, React 18, TypeScript | Main product frontend for students/admins, auth and portal UX. | `make run` |
+| `assistiv-admin` | Next.js 15, React 19, TypeScript | System-admin console for platform-level operations. | `make run` |
+| `assistiv-backend` | Node.js, Express, TypeScript, MikroORM | Core REST API, auth/session handling, content/course/group management, logging/system endpoints. | `make run` |
+| `aurora` | Go 1.24, Gorilla Mux | AI and study intelligence service exposed at `/aurora/v1`. | `make run` |
+| `assistiv-documentation-docs` | MDX + Jamdesk | Published documentation site and navigation (`docs.json`). | Push to connected branch |
+
+## Code Ownership Boundaries
+
+- UI behavior and UX documentation should start in `assistiv` or `assistiv-admin`.
+- Domain/API behavior documentation should start in `assistiv-backend`.
+- AI workflow and model-integration documentation should start in `aurora`.
+- Cross-repo architecture and onboarding documentation belongs in `assistiv-documentation-docs`.
+
+## Suggested Documentation Source of Truth
+
+1. Keep deep implementation docs close to code in each repo when practical.
+2. Mirror curated, consumer-facing versions in `assistiv-documentation-docs`.
+3. Link back to source paths so drift is easy to detect during review.
