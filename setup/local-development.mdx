@@ -35,7 +35,7 @@ Run from each repo root where the certificates are expected.
 1. Start `assistiv-backend`:
 
 ```bash
-cd D:\GIT Repos\assistiv-backend
+cd assistiv-backend
 make init
 make run
 ```
@@ -43,7 +43,7 @@ make run
 2. Start `aurora`:
 
 ```bash
-cd D:\GIT Repos\aurora
+cd aurora
 go mod download && go mod verify
 make run
 ```
@@ -51,7 +51,7 @@ make run
 3. Start `assistiv`:
 
 ```bash
-cd D:\GIT Repos\assistiv
+cd assistiv
 make init
 make run
 ```
@@ -59,7 +59,7 @@ make run
 4. Start `assistiv-admin` on a non-conflicting port:
 
 ```bash
-cd D:\GIT Repos\assistiv-admin
+cd assistiv-admin
 yarn dev --experimental-https --hostname 0.0.0.0 --port 4201
 ```
 
